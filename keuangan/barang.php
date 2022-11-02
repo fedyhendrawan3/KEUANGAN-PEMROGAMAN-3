@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
 	</head>
 	<body>
-		<h2>DATA BARANG</h2>
+		<h2>MODULE BARANG</h2>
 		<br/>
 		<a href="tambah_barang.php">+ TAMBAH BARANG</a>
 		<br/>

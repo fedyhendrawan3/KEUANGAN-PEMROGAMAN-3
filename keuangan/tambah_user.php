@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
 	</head>
 
 	<?php
@@ -27,11 +27,16 @@
 				echo mysqli_error($koneksi);
 			}
 		}	
+		$querylevel = "SELECT * FROM level
+						LEFT JOIN tipe on level.id_tipe = tipe.id_tipe
+						WHERE tipe.nama_tipe = 'Userlogin'
+						";
+		$resultlevel = mysqli_query ($koneksi,$querylevel);
 	?>
 	<body>
-		<h2>DATA USER</h2>
+		<h2>MODULE USER</h2>
 		<br/>
-		<a href="index.php">KEMBALI</a>
+		<a href="user.php">KEMBALI</a>
 		<br/>
 		<br/>
 		<h3>TAMBAH DATA USER</h3>
@@ -49,9 +54,13 @@
 					<td>Level</td>
 					<td>
 						<select name="level">
-							<option value="">-----Pilih</option>
-							<option value="1">Admin</option>
-							<option value="2">Staff</option>
+							<option value="">-----Pilih-----</option>
+							<?php
+							while ($datalevel=mysqli_fetch_array($resultlevel))
+							{
+								echo "<option value=$datalevel[id_level]>$datalevel[nama_level]</option>";
+							}
+							?>
 						</select>
 					</td>
 				</tr>

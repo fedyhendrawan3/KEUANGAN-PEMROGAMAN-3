@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
 	</head>
 
 	<?php
@@ -28,9 +28,9 @@
 		
 	?>
 	<body>
-		<h2>DATA KATEGORI</h2>
+		<h2>MODULE KATEGORI</h2>
 		<br/>
-		<a href="index.php">KEMBALI</a>
+		<a href="kategori.php">KEMBALI</a>
 		<br/>
 		<br/>
 		<h3>TAMBAH DATA KATEGORI</h3>

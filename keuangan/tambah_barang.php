@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
 	</head>
 
 	<?php
@@ -32,9 +32,9 @@
 		$resultkategori = mysqli_query ($koneksi,$querykategori); 
 	?>
 	<body>
-		<h2>DATA BARANG</h2>
+		<h2>MODULE BARANG</h2>
 		<br/>
-		<a href="index.php">KEMBALI</a>
+		<a href="barang.php">KEMBALI</a>
 		<br/>
 		<br/>
 		<h3>TAMBAH DATA BARANG</h3>

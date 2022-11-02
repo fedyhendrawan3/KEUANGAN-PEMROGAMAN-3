@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<title>TUGAS PEMOGRAMAN 3</title>
+		<title>CRUD - SEDERHANA</title>
 	</head>
 	<body>
-		<h2>DATA USER</h2>
+		<h2>MODULE USER</h2>
 		<br/>
 		<a href="tambah_user.php">+ TAMBAH USER</a>
 		<br/>
@@ -19,7 +19,9 @@
 			<?php
 				include 'koneksi.php';
 				$no = 1;
-				$query = mysqli_query($koneksi,"SELECT * FROM user");
+				$query = mysqli_query($koneksi,"SELECT * FROM user
+												LEFT JOIN level on level.id_level = user.level 
+									");
 				while($data = mysqli_fetch_array($query))
 				{
 			?>
@@ -27,7 +29,7 @@
 				<td><?php echo $no++;?></td>
 				<td><?php echo $data['nama']; ?></td>
 				<td><?php echo $data['password']; ?></td>
-				<td><?php echo $data['level']; ?></td>
+				<td><?php echo $data['nama_level']; ?></td>
 				<td><?php echo $data['status']; ?></td>
 				<td>
 					<a href="edit_user.php?id=<?php echo $data['id']; ?>">EDIT</a>
