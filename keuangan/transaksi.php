@@ -1,14 +1,18 @@
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	</head>
 	<body>
 		<h2>MODULE TRANSAKSI</h2>
 		<br/>
-		<a href="tambah_transaksi.php">+ TAMBAH TRANSAKSI</a>
+		<a href="tambah_transaksi.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH TRANSAKSI</a>
+		<a href="view_report.php" class="btn btn-outline-primary" tabindex="-1" role="button">REPORT</a>
 		<br/>
-		<a href="view_report.php">+ REPORT</a>
-		<table border="1">
+		<br/>
+		<table border="1" class="table">
 			<tr>
 				<th>No</th>
 				<th>Tanggal Transaksi</th>
@@ -26,7 +30,7 @@
 			<?php
 				include 'koneksi.php';
 				$no = 1;
-				$query = mysqli_query($koneksi,"SELECT * FROM transaksi t LEFT JOIN barang b on t.barang_id = b.id_barang LEFT JOIN member m on t.member_id = m.id_member");
+				$query = mysqli_query($koneksi,"SELECT * FROM transaksi t LEFT JOIN barang b on t.barang_id = b.id_barang LEFT JOIN member m on t.id_member = m.id_member");
 				while($data = mysqli_fetch_array($query))
 				{
 			?>

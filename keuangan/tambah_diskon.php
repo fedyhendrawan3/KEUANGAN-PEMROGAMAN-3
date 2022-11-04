@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	</head>
 
 	<?php
@@ -31,37 +34,35 @@
 		
 	?>
 	<body>
-		<h2>MODULE DISKON</h2>
 		<br/>
-		<a href="diskon.php">KEMBALI</a>
 		<br/>
-		<!-- <br/> -->
-		<!-- <h3>TAMBAH DATA DISKON</h3> -->
-		<form method="POST">
-			<table>
-				<tr>
-					<td>Diskon</td>
-					<td><input type="number" name="diskon"></td>
-				</tr>
-                <tr>
-					<td>Level</td>
-					<td>
-						<select name="id_level">
-							<option value="">-----Pilih-----</option>
-							<?php
-							while ($datalevel=mysqli_fetch_array($resultlevel))
-							{
-								echo "<option value=$datalevel[id_level]>$datalevel[nama_level]</option>";
-							}
-							?>
+		<div class="container">		
+			<a href="diskon.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
+			<center><h1>TAMBAH DATA DISKON</h1></center>
+
+			<form class="form-horizontal"  method="POST">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="diskon">Nilai Diskon</label>
+					<div class="col-sm-5">
+						<input type="number" class="form-control" name="diskon">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="id_level">Level</label>
+					<div class="col-sm-5">
+						<select class="form-control" name="id_level" id="id_level">
+							<option value="">-----Pilih LEVEL-----</option>
+								<?php
+									while ($datalevel=mysqli_fetch_array($resultlevel))
+									{
+										echo "<option value=$datalevel[id_level]>$datalevel[nama_level]</option>";
+									}
+								?>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" name="save"></td>
-				</tr>
-			</table>
-		</form>
+					</div>
+				</div>
+				<input type="submit" name="save" class="btn btn-danger">
+			</form>		
+		</div>
 	</body>
 </html>

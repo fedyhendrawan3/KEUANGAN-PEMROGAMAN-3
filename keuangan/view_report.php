@@ -1,11 +1,16 @@
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	</head>
 	<body>
 		<h2>REPORT - TRANSAKSI</h2>
-		<a href="transaksi.php">+ BACK</a>
-		<table border="1">
+		<a href="transaksi.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
+		<br/>
+		<br/>
+		<table border="1" class='table'>
 			<tr>
 				<th>Member</th>
 				<th>Level</th>
@@ -18,7 +23,7 @@
 			<?php
 				include 'koneksi.php';
 				$no = 1;
-				$query = mysqli_query($koneksi,"SELECT * FROM transaksi t LEFT JOIN member m on t.member_id = m.id_member LEFT JOIN level l on l.id_level = m.id_level");
+				$query = mysqli_query($koneksi,"SELECT * FROM transaksi t LEFT JOIN member m on t.id_member = m.id_member LEFT JOIN level l on l.id_level = m.id_level");
 				while($data = mysqli_fetch_array($query))
 				{
 			?>

@@ -1,13 +1,17 @@
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	</head>
 	<body>
 		<h2>MODULE TIPE</h2>
 		<br/>
-		<a href="tambah_tipe.php">+ TAMBAH TIPE</a>
+		<a href="tambah_tipe.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH TIPE</a>
 		<br/>
-		<table border="1">
+		<br/>
+		<table border="1" class="table">
 			<tr>
 				<th>No</th>
 				<th>Nama Tipe</th>

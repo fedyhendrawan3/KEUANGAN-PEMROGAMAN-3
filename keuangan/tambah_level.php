@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	</head>
 
 	<?php
@@ -31,37 +34,35 @@
 		
 	?>
 	<body>
-		<h2>MODULE LEVEL</h2>
-		<br/>
-		<a href="level.php">KEMBALI</a>
 		<br/>
 		<br/>
-		<h3>TAMBAH DATA LEVEL</h3>
-		<form method="POST">
-			<table>
-				<tr>
-					<td>Nama Level</td>
-					<td><input type="text" name="nama_level"></td>
-				</tr>
-                <tr>
-					<td>Tipe</td>
-					<td>
-						<select name="id_tipe">
-							<option value="">-----Pilih-----</option>
-							<?php
-							while ($datatipe=mysqli_fetch_array($resulttipe))
-							{
-								echo "<option value=$datatipe[id_tipe]>$datatipe[nama_tipe]</option>";
-							}
-							?>
+		<div class="container">		
+			<a href="level.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
+			<center><h1>TAMBAH DATA LEVEL</h1></center>
+
+			<form class="form-horizontal"  method="POST">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="nama_level">Nama Level</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" name="nama_level">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="id_tipe">Tipe</label>
+					<div class="col-sm-5">
+						<select class="form-control" name="id_tipe" id="id_tipe">
+							<option value="">-----Pilih Tipe-----</option>
+								<?php
+									while ($datatipe=mysqli_fetch_array($resulttipe))
+									{
+										echo "<option value=$datatipe[id_tipe]>$datatipe[nama_tipe]</option>";
+									}
+								?>
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" name="save"></td>
-				</tr>
-			</table>
-		</form>
+					</div>
+				</div>
+				<input type="submit" name="save" class="btn btn-danger">
+			</form>		
+		</div>
 	</body>
 </html>
