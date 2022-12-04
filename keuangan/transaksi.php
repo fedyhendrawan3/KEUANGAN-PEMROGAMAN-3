@@ -1,3 +1,24 @@
+<?php
+session_start();
+$username   = $_SESSION['username'];
+$password   = $_SESSION['password'];
+$level      = $_SESSION['level']; 
+$nama_level = $_SESSION['nama_level'];
+
+    if(isset($_SESSION['username']) && isset($_SESSION['level']))
+    {
+    }
+    else
+    {
+        echo ("
+            <script type='text/javascript'>
+                alert('Anda harus login');document.location='index.php';
+            </script>
+        ");
+    }
+
+    include_once('navbar.php');
+?>
 <html>
 	<head>
 		<title>CRUD - SEDERHANA</title>
@@ -28,7 +49,7 @@
 				<th>OPSI</th>
 			</tr>
 			<?php
-				include 'koneksi.php';
+				include_once ('koneksi.php');
 				$no = 1;
 				$query = mysqli_query($koneksi,"SELECT * FROM transaksi t LEFT JOIN barang b on t.barang_id = b.id_barang LEFT JOIN member m on t.id_member = m.id_member");
 				while($data = mysqli_fetch_array($query))
