@@ -1,3 +1,22 @@
+<?php
+error_reporting(0);
+session_start();
+$username   = $_SESSION['username'];
+$password   = $_SESSION['password'];
+$level      = $_SESSION['level']; 
+$nama_level = $_SESSION['nama_level'];
+
+    if(isset($_SESSION['username']) && isset($_SESSION['level']))
+    {
+      header('Location: Homepage.php');
+    }
+    else
+    {
+      //header('Location: index.php');
+    }
+
+?>
+
 <html>
   <head>
     <title>CRUD - SEDERHANA</title>

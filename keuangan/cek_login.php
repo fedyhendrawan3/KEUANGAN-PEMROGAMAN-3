@@ -21,16 +21,20 @@
         }
         else
         {
-            $query=mysqli_query($koneksi,"SELECT username, password, level, nama_level FROM user u LEFT JOIN level l on l.id_level = u.level WHERE status=1 and username = '$username' and password = '$passmd5' ");
+            $query=mysqli_query($koneksi,"SELECT u.username, u.password, u.level, l.nama_level, u.online FROM user u LEFT JOIN level l on l.id_level = u.level WHERE u.status='1' and u.username = '$username' and u.password = '$passmd5' ");
             $data=mysqli_fetch_array($query);
 
-            if($username == $data['username'] && $passmd5 == $data['password']) 
+            if($username == $data['username'] && $passmd5 == $data['password'] && $data['online'] == '0') 
             {
                 $_SESSION['username']   = $data['username'];
                 $_SESSION['password']   = $data['password'];
                 $_SESSION['level']      = $data['level'];
                 $_SESSION['nama_level'] = $data['nama_level'];
-                header('Location: Homepage.php');
+                $_SESSION['online']     = $data['online'];
+                
+
+                $query=mysqli_query($koneksi,"Update user set online='1' where username = '$username' and password = '$passmd5' ");
+                header('Location: Homepage.php');   
                 /*
                 if($_SESSION['nama_level'] == 'Administrator')
                 {
@@ -41,6 +45,14 @@
                     header('Location: HomepageKasir.php');
                 }
                 */
+            }
+            else if ($username == $data['username'] && $passmd5 == $data['password'] && $data['online'] == '1')
+            {
+                echo ("
+                    <script type='text/javascript'> 
+                        alert ('username Sedang digunakan'); document.location='javascript:history.back(1)';
+                    </script>
+                ");
             }
             else
             {
