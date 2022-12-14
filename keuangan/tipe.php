@@ -26,9 +26,13 @@ $nama_level = $_SESSION['nama_level'];
 			<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 			<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 			<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+			<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
 		</head>
 		<body>
 			<h2>MODULE TIPE</h2>
+			<br/>
+			<td>Search <input type="text" name="searchtipe" id="searchtipe"></td>
+			<br/>
 			<br/>
 			<a href="tambah_tipe.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH TIPE</a>
 			<br/>
@@ -43,20 +47,32 @@ $nama_level = $_SESSION['nama_level'];
 					include_once('koneksi.php');
 					$no = 1;
 					$query = mysqli_query($koneksi,"SELECT * FROM tipe");
-					while($data = mysqli_fetch_array($query))
+					while($fedy = mysqli_fetch_array($query))
 					{
 ?>
+				<tbody id="table-fedy">
 				<tr>
 					<td><?php echo $no++ ?></td>
-					<td><?php echo $data["nama_tipe"] ?></td>
+					<td><?php echo $fedy["nama_tipe"] ?></td>
 					<td>
-						<a href="edit_kategori.php?id=<?php echo $data["id_tipe"] ?>">EDIT</a>
-						<a href="hapus_kategori.php?id=<?php echo $data["id_tipe"] ?>">HAPUS</a>
+						<a href="edit_kategori.php?id=<?php echo $fedy["id_tipe"] ?>">EDIT</a>
+						<a href="hapus_kategori.php?id=<?php echo $fedy["id_tipe"] ?>">HAPUS</a>
 					</td>
 				</tr>
+				</tbody>
 <?php
 					}
 ?>
 			</table>
 		</body>
+		<script type='text/javascript'>
+		$(document).ready(function(){
+			$("#searchtipe").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#table-fedy tr").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+		</script>
 	</html>

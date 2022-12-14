@@ -1,13 +1,26 @@
 <?php
 session_start();
+include_once('koneksi.php');
+
 $username   = $_SESSION['username'];
 $password   = $_SESSION['password'];
 $level      = $_SESSION['level']; 
 $nama_level = $_SESSION['nama_level'];
-
+	
     if(isset($_SESSION['username']) && isset($_SESSION['level']))
     {
+		if(isset($_POST['search']))
+		{
+			$no = 1;
+			$queryshow = mysqli_query($koneksi," SELECT * FROM barang b LEFT JOIN kategori k on b.kategori_id = k.id_kategori where (b.nama_barang like '%".$_POST['searchbarang']."%') OR (b.kode_barang like '%".$_POST['searchbarang']."%') OR (b.qty like '%".$_POST['searchbarang']."%') OR (k.nama_kategori like '%".$_POST['searchbarang']."%') ");
+		}
+		else
+		{
+			$no = 1;
+			$queryshow = mysqli_query($koneksi," SELECT * FROM barang b LEFT JOIN kategori k on b.kategori_id = k.id_kategori");
+		}
 
+		
     }
     else
     {
@@ -20,16 +33,26 @@ $nama_level = $_SESSION['nama_level'];
 
     include_once('navbar.php');
 ?>
+	
 	<html>
 		<head>
 			<title>CRUD - SEDERHANA</title>
 			<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 			<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 			<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+			<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
 		</head>
 		<body>
 			<h2>MODULE BARANG</h2>
-			<br/>
+			</br>
+			<form method="POST">
+				<table>
+					<tr>
+						<td><input type="text" name="searchbarang" id="searchbarang"></td>
+						<td><input type="submit" name="search" value="Search"></td>
+					</tr>
+				</table>
+			</form>
 			<a href="tambah_barang.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH BARANG</a>
 			<br/>
 			<br/>
@@ -43,23 +66,22 @@ $nama_level = $_SESSION['nama_level'];
 					<th>OPSI</th>
 				</tr>
 <?php
-					include_once('koneksi.php');
-					$no = 1;
-					$query = mysqli_query($koneksi," SELECT * FROM barang b LEFT JOIN kategori k on b.kategori_id = k.id_kategori");
-					while($data = mysqli_fetch_array($query))
+					while($fedy = mysqli_fetch_array($queryshow))
 					{
 ?>
-				<tr>
-					<td><?php echo $no++ ?></td>
-					<td><?php echo $data['nama_barang'] ?></td>
-					<td><?php echo $data['kode_barang'] ?></td>
-					<td><?php echo $data['qty'] ?></td>
-					<td><?php echo $data['nama_kategori'] ?></td>
-					<td>
-						<a href="edit_user.php?id= <?php echo $data['id_barang'] ?>">EDIT</a>
-						<a href="hapus_user.php?id= <?php echo $data['id_barang'] ?>">HAPUS</a>
-					</td>
-				</tr>
+				<tbody id="table-fedy" >
+					<tr>
+						<td><?php echo $no++; ?></td>
+						<td><?php echo $fedy['nama_barang']; ?></td>
+						<td><?php echo $fedy['kode_barang']; ?></td>
+						<td><?php echo $fedy['qty']; ?></td>
+						<td><?php echo $fedy['nama_kategori'];?></td>
+						<td>
+							<a href="edit_user.php?id= <?php echo $fedy['id_barang'] ?>">EDIT</a>
+							<a href="hapus_user.php?id= <?php echo $fedy['id_barang'] ?>">HAPUS</a>
+						</td>
+					</tr>
+				</tbody>
 <?php	
 					}
 ?>

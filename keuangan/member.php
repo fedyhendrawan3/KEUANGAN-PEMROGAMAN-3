@@ -26,9 +26,13 @@ $nama_level = $_SESSION['nama_level'];
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
 	</head>
 	<body>
 		<h2>MODULE MEMBER</h2>
+		<br/>
+			<td>Search <input type="text" name="searchmember" id="searchmember"></td>
+		<br/>
 		<br/>
 		<a href="tambah_member.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH MEMBER</a>
 		<br/>
@@ -48,23 +52,35 @@ $nama_level = $_SESSION['nama_level'];
 				$query = mysqli_query($koneksi,"SELECT * FROM member
 												LEFT JOIN level on level.id_level = member.id_level 
 									");
-				while($data = mysqli_fetch_array($query))
+				while($fedy = mysqli_fetch_array($query))
 				{
 			?>
+			<tbody id="table-fedy">
 			<tr>
 				<td><?php echo $no++;?></td>
-				<td><?php echo $data['nama_member']; ?></td>
-				<td><?php echo $data['alamat_member']; ?></td>
-				<td><?php echo $data['nama_level']; ?></td>
-				<td><?php echo $data['status']; ?></td>
+				<td><?php echo $fedy['nama_member']; ?></td>
+				<td><?php echo $fedy['alamat_member']; ?></td>
+				<td><?php echo $fedy['nama_level']; ?></td>
+				<td><?php echo $fedy['status']; ?></td>
 				<td>
-					<a href="edit_user.php?id=<?php echo $data['id']; ?>">EDIT</a>
-					<a href="hapus_user.php?id=<?php echo $data['id']; ?>">HAPUS</a>
+					<a href="edit_user.php?id=<?php echo $fedy['id']; ?>">EDIT</a>
+					<a href="hapus_user.php?id=<?php echo $fedy['id']; ?>">HAPUS</a>
 				</td>
 			</tr>
+			</tbody>
 			<?php
 				}
 			?>
 		</table>
 	</body>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$("#searchmember").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#table-fedy tr").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+	</script>
 </html>

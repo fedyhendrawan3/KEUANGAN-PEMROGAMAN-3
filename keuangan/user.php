@@ -26,9 +26,13 @@ $nama_level = $_SESSION['nama_level'];
 			<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 			<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 			<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+			<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
 		</head>
 		<body>
 			<h2>MODULE USER</h2>
+			<br/>
+			<td>Search <input type="text" name="searchuser" id="searchuser"></td>
+			<br/>
 			<br/>
 			<a href="tambah_user.php" class="btn btn-outline-primary" tabindex="-1" role="button">TAMBAH USER</a>
 			<br/>
@@ -36,7 +40,7 @@ $nama_level = $_SESSION['nama_level'];
 			<table border="1" class="table">
 				<tr>
 					<th>No</th>
-					<th>Nama</th>
+					<th>Username</th>
 					<th>Password</th>
 					<th>Level</th>
 					<th>Status</th>
@@ -48,22 +52,35 @@ $nama_level = $_SESSION['nama_level'];
 					$query = mysqli_query($koneksi,"SELECT * FROM user
 													LEFT JOIN level on level.id_level = user.level 
 										");
-					while($data = mysqli_fetch_array($query))
+					while($fedy = mysqli_fetch_array($query))
 					{
 ?>
-				<tr>
-					<td><?php echo $no++ ?></td>
-					<td><?php echo $data['password'] ?></td>
-					<td><?php echo $data['nama_level'] ?></td>
-					<td><?php echo $data['status'] ?></td>
-					<td>
-						<a href="edit_user.php?id=<?php echo $data['id_user'] ?>">EDIT</a>
-						<a href="hapus_user.php?id=<?php echo $data['id_user'] ?>">HAPUS</a>
-					</td>
-				</tr>
+				<tbody id="table-fedy">
+					<tr>
+						<td><?php echo $no++ ?></td>
+						<td><?php echo $fedy['username'] ?></td>
+						<td><?php echo $fedy['password'] ?></td>
+						<td><?php echo $fedy['nama_level'] ?></td>
+						<td><?php echo $fedy['status'] ?></td>
+						<td>
+							<a href="edit_user.php?id=<?php echo $fedy['id_user'] ?>">EDIT</a>
+							<a href="hapus_user.php?id=<?php echo $fedy['id_user'] ?>">HAPUS</a>
+						</td>
+					</tr>
+				</tbody>
 <?php
 					}
 ?>			
 			</table>
 		</body>
+		<script type='text/javascript'>
+		$(document).ready(function(){
+			$("#searchuser").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#table-fedy tr").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+		</script>
 	</html>

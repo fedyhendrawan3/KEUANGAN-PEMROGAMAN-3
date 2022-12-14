@@ -16,7 +16,7 @@
 		{
 			$nama_barang = $_POST['nama_barang'];
 			$kode_barang = $_POST['kode_barang'];
-			$qty = $_POST['qty'];
+			$qty 		 = $_POST['qty'];
 			$kategori_id = $_POST['kategori_id'];
 			// menginput data ke database
 			$query=mysqli_query($koneksi,"insert into barang values('','$nama_barang','$kode_barang','$qty','$kategori_id')");
