@@ -13,17 +13,18 @@
 		// menangkap data yang di kirim dari form
 		if( !empty($_POST['save']) )
 		{
-			$nama = $_POST['nama'];
-			$password = $_POST['password'];
-			$level = $_POST['level'];
+            $id=$_POST['id'];
+			$nama_member = $_POST['nama_member'];
+			$alamat_member = $_POST['alamat_member'];
+			$id_level = $_POST['id_level'];
 			$status = $_POST['status'];
 			// menginput data ke database
-			$query=mysqli_query($koneksi,"insert into user values('','$nama','$password','$level','$status','0')");
+			$query=mysqli_query($koneksi,"UPDATE member SET nama_member='$nama_member', alamat_member='$alamat_member', id_level='$id_level', status='$status' where id_member='$id' ");
 
 			if($query)
 			{
 				// mengalihkan halaman kembali
-				header("location:user.php");
+				header("location:member.php");
 			}
 			else
 			{
@@ -32,34 +33,42 @@
 		}	
 		$querylevel = "SELECT * FROM level
 						LEFT JOIN tipe on level.id_tipe = tipe.id_tipe
-						WHERE tipe.nama_tipe = 'Userlogin'
+						WHERE tipe.nama_tipe = 'Member'
 						";
 		$resultlevel = mysqli_query ($koneksi,$querylevel);
+
+        $id = $_GET['id'];
+
+        $query_mysqli = mysqli_query($koneksi,"SELECT * FROM member m LEFT JOIN level l on l.id_level = m.id_level  WHERE  m.id_member='$id'")or die(mysqli_error());
+        $nomor = 1;
+        while($data = mysqli_fetch_array($query_mysqli)){
 	?>
 	<body>
 		<br/>
 		<br/>
 		<div class="container">		
-			<a href="user.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
-			<center><h1>TAMBAH DATA USER</h1></center>
+			<a href="member.php" class="btn btn-outline-primary" tabindex="-1" role="button">KEMBALI</a>
+			<center><h1>TAMBAH DATA MEMBER</h1></center>
 
 			<form class="form-horizontal"  method="POST">
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="nama">Nama User</label>
+					<label class="control-label col-sm-2" for="nama_member">Nama Member</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" name="nama">
+                        <input type="hidden" class="form-control" name="id" value="<?php echo $data['id_member'];?>">
+						<input type="text" class="form-control" name="nama_member" value="<?php echo $data['nama_member'];?>">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="password">Password</label>
+					<label class="control-label col-sm-2" for="alamat_member">Alamat Member</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" name="password">
+						<input type="textarea" class="form-control" name="alamat_member" value="<?php echo $data['nama_member'];?>">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="level">Level</label>
+					<label class="control-label col-sm-2" for="id_level">Level</label>
 					<div class="col-sm-5">
-						<select class="form-control" name="level" id="level">
+						<select class="form-control" name="id_level" id="id_level">
+                            <option value="<?php echo $data['id_level'];?>"><?php echo $data['nama_level'];?></option>
 							<option value="">-----Pilih Level-----</option>
 								<?php
 									while ($datalevel=mysqli_fetch_array($resultlevel))
@@ -74,6 +83,7 @@
 					<label class="control-label col-sm-2" for="status">Status</label>
 					<div class="col-sm-5">
 						<select class="form-control" name="status" id="status">
+                            <option value="<?php echo $data['status'];?>"><?php echo $data['status'];?></option>
 							<option value="">-----Pilih Status-----</option>
 							<option value="1">Aktif</option>
 							<option value="0">Tidak Aktif</option>
@@ -81,7 +91,10 @@
 					</div>
 				</div>
 				<input type="submit" name="save" class="btn btn-danger">
-			</form>
+			</form>		
 		</div>
 	</body>
+    <?php
+        }
+    ?>
 </html>

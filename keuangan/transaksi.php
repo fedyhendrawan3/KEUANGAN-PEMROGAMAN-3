@@ -12,6 +12,7 @@ $nama_level = $_SESSION['nama_level'];
 		{
 			$no = 1;
 			$query = mysqli_query($koneksi," SELECT 
+													t.id_transaksi,
 													t.tgl_transaksi,
 													t.no_transaksi,
 													t.jenis_transaksi,
@@ -42,6 +43,7 @@ $nama_level = $_SESSION['nama_level'];
 		{
 			$no = 1;
 			$query = mysqli_query($koneksi," SELECT 
+													t.id_transaksi,
 													t.tgl_transaksi,
 													t.no_transaksi,
 													t.jenis_transaksi,
@@ -127,8 +129,8 @@ $nama_level = $_SESSION['nama_level'];
 				<td><?php echo $fedy['jumlah_transaksi']; ?></td>
 				<td><?php echo $fedy['nama_member']; ?></td>
 				<td>
-					<a href="edit_transaksi.php?id=<?php echo $fedy['id']; ?>">EDIT</a>
-					<a href="hapus_transaksi.php?id=<?php echo $fedy['id']; ?>">HAPUS</a>
+					<a href="edit_transaksi.php?id=<?php echo $fedy['id_transaksi']; ?>">EDIT</a>
+					<a href="hapus_transaksi.php?id=<?php echo $fedy['id_transaksi']; ?>">HAPUS</a>
 				</td>
 			</tr>
 			<?php

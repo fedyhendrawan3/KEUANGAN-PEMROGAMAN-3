@@ -13,12 +13,13 @@
 		// menangkap data yang di kirim dari form
 		if( !empty($_POST['save']) )
 		{
+            $id=$_POST['id'];
 			$nama = $_POST['nama'];
-			$password = $_POST['password'];
+			$password = md5($_POST['password']);
 			$level = $_POST['level'];
 			$status = $_POST['status'];
 			// menginput data ke database
-			$query=mysqli_query($koneksi,"insert into user values('','$nama','$password','$level','$status','0')");
+			$query=mysqli_query($koneksi,"UPDATE user SET username='$nama', password='$password', level='$level', status='$status' where id_user='$id' ");
 
 			if($query)
 			{
@@ -35,6 +36,12 @@
 						WHERE tipe.nama_tipe = 'Userlogin'
 						";
 		$resultlevel = mysqli_query ($koneksi,$querylevel);
+
+        $id = $_GET['id'];
+
+        $query_mysqli = mysqli_query($koneksi,"SELECT * FROM user u LEFT JOIN level l on l.id_level = u.level  WHERE u.id_user='$id'")or die(mysqli_error());
+        $nomor = 1;
+        while($data = mysqli_fetch_array($query_mysqli)){
 	?>
 	<body>
 		<br/>
@@ -47,20 +54,22 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="nama">Nama User</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" name="nama">
+                        <input type="hidden" class="form-control" name="id" value="<?php echo $data['id_user'];?>">
+						<input type="text" class="form-control" name="nama" value="<?php echo $data['username'];?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="password">Password</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" name="password">
+						<input type="password" class="form-control" name="password" value="<?php echo $data['password'];?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="level">Level</label>
 					<div class="col-sm-5">
-						<select class="form-control" name="level" id="level">
-							<option value="">-----Pilih Level-----</option>
+						<select class="form-control" name="level" id="level" value="<?php echo $data['nama_level'];?>">
+                            <option value="<?php echo $data['id_level'];?>"><?php echo $data['nama_level'];?></option>
+                            <option value="">-----Pilih Level-----</option>
 								<?php
 									while ($datalevel=mysqli_fetch_array($resultlevel))
 									{
@@ -71,9 +80,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="status">Status</label>
+					<label class="control-label col-sm-2" for="status" value="">Status</label>
 					<div class="col-sm-5">
 						<select class="form-control" name="status" id="status">
+                            <option value="<?php echo $data['status'];?>"><?php echo $data['status'];?></option>
 							<option value="">-----Pilih Status-----</option>
 							<option value="1">Aktif</option>
 							<option value="0">Tidak Aktif</option>
@@ -84,4 +94,7 @@
 			</form>
 		</div>
 	</body>
+    <?php
+        }
+    ?>
 </html>

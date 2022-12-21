@@ -59,8 +59,8 @@ $nama_level = $_SESSION['nama_level'];
 				<td><?php echo $fedy['nama_level']; ?></td>
                 <td><?php echo $fedy['nama_tipe']; ?></td>
 				<td>
-					<a href="edit_kategori.php?id=<?php echo $fedy['id']; ?>">EDIT</a>
-					<a href="hapus_kategori.php?id=<?php echo $fedy['id']; ?>">HAPUS</a>
+					<a href="edit_level.php?id=<?php echo $fedy['id_level']; ?>">EDIT</a>
+					<a href="hapus_level.php?id=<?php echo $fedy['id_level']; ?>">HAPUS</a>
 				</td>
 			</tr>
 			</tbody>

@@ -55,8 +55,8 @@ include_once('navbar.php');
 					<td><?php echo $no++;?></td>
 					<td><?php echo $fedy['nama_kategori']; ?></td>
 					<td>
-						<a href="edit_kategori.php?id=<?php echo $fedy['id']; ?>">EDIT</a>
-						<a href="hapus_kategori.php?id=<?php echo $fedy['id']; ?>">HAPUS</a>
+						<a href="edit_kategori.php?id=<?php echo $fedy['id_kategori']; ?>">EDIT</a>
+						<a href="hapus_kategori.php?id=<?php echo $fedy['id_kategori']; ?>">HAPUS</a>
 					</td>
 				</tr>
 				</tbody>
